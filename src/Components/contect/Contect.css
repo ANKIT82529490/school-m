@@ -1,0 +1,152 @@
+/* Container */
+.contect {
+    margin: 80px auto;
+    max-width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #555;
+}
+
+/* Columns */
+.contect-col {
+    flex-basis: 48%;
+    background-color: #f9f9f9;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contect-col:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+.contect-col h3 {
+    color: #000A38;
+    font-weight: 600;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contect-col h3 img {
+    width: 35px;
+    margin-left: 12px;
+}
+
+/* Paragraphs */
+.contect-col p {
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* List Items */
+.contect-col ul {
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+
+.contect-col ul li {
+    display: flex;
+    align-items: center;
+    margin: 18px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.contect-col ul li img {
+    width: 28px;
+    margin-right: 12px;
+    filter: grayscale(20%);
+}
+
+/* Form Inputs & Textarea */
+.contect form input,
+.contect form textarea {
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    margin-bottom: 20px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.contect form input:focus,
+.contect form textarea:focus {
+    border-color: #000A38;
+    box-shadow: 0 0 8px rgba(0, 10, 56, 0.2);
+    background-color: #fff;
+}
+
+/* Submit Button */
+.btn.dark-btn {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #000A38, #2a2f70);
+    color: #fff;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn.dark-btn img {
+    margin-left: 12px;
+    width: 22px;
+}
+
+.btn.dark-btn:hover {
+    background: linear-gradient(135deg, #2a2f70, #000A38);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Result Message */
+.contect-col span {
+    display: block;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 16px;
+    color: green;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .contect-col {
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contect {
+        margin: 40px 10px;
+    }
+
+    .contect-col h3 {
+        font-size: 24px;
+    }
+
+    .btn.dark-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

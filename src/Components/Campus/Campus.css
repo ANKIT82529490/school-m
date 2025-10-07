@@ -1,0 +1,78 @@
+/* Campus Container */
+.campus {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+/* Gallery Grid */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Button */
+.btn.dark-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #000A38, #2a2f70);
+    color: #fff;
+    padding: 14px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.btn.dark-btn img {
+    width: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn.dark-btn:hover {
+    background: linear-gradient(135deg, #2a2f70, #000A38);
+}
+
+.btn.dark-btn:hover img {
+    transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .gallery img {
+        height: 220px;
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery img {
+        height: 180px;
+    }
+
+    .btn.dark-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
