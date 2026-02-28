@@ -16,14 +16,16 @@
     flex: 0 0 45%;
 }
 
-.about-left .about-img {
+.about-left .about-video {
     width: 100%;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
+    object-fit: cover;
+    display: block;
 }
 
-.about-left .about-img:hover {
+.about-left .about-video:hover {
     transform: scale(1.03);
 }
 

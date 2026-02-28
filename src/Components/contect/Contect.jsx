@@ -1,75 +1,155 @@
-import React from 'react'
-import './Contect.css'
-import message_icon from '../../assets/message-icon.png'
-import email_icon from '../../assets/email-icon.png'
-import phone_icon from '../../assets/phonecall-icon.png'
-import location_icon from '../../assets/location-icon.png'
-import black_arrow from '../../assets/black_arrow.png'
-import { toast } from "react-toastify"
+import React, { useState } from "react";
+import "./Contect.css";
+
+import message_icon from "../../assets/message-icon.png";
+import email_icon from "../../assets/email-icon.png";
+import phone_icon from "../../assets/phonecall-icon.png";
+import location_icon from "../../assets/location-icon.png";
+import black_arrow from "../../assets/black_arrow.png";
+import { toast } from "react-toastify";
+
 const Contect = () => {
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [result, setResult] = React.useState("");
-  const onSubmit = async (event) =>{
+  const onSubmit = async (event) => {
     event.preventDefault();
-    
-    setResult("sending....");
-    
-    const formData = new FormData(event.target);
+    if (loading) return;
 
-    formData.append("access_key", "2c4876cc-80f5-41c3-801e-86351e218823");
+    try {
+      setLoading(true);
+      setResult("Sending...");
 
-    const res = await fetch("https://api.web3forms.com/submit",{
-      method: "POST",
-      body: formData
+      const formData = new FormData(event.target);
+      formData.append("access_key", "2c4876cc-80f5-41c3-801e-86351e218823");
+      formData.append("subject", "New Contact Form Message - RDSS HIGH SCHOOL");
+      formData.append("from_name", "RDSS Website");
 
-    }).then((res) => res.json());
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (res.success) {
-      console.log("Success", res)
-      setResult(res.message);
-      event.target.reset();
-      toast.success("user massage send successfully");
-      
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Message sent ✅");
+        event.target.reset();
+        toast.success("Message sent successfully!");
+      } else {
+        setResult(data.message || "Failed to send message");
+        toast.error(data.message || "Failed to send message");
+      }
+    } catch (err) {
+      console.error(err);
+      setResult("Network error. Please try again.");
+      toast.error("Network error. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    else {
-      console.log("Error", res)
-      setResult(res.message);
+  };
 
-
-    }
-    
-  }
   return (
-    <div className='contect'>
-        <div className='contect-col'>
+    <section className="contact" id="contact">
+      <div className="contact-wrap">
+        {/* Left Card */}
+        <div className="contact-info glass">
+          <div className="title-row">
+            <h3>Send us a message</h3>
+            <img src={message_icon} alt="message" />
+          </div>
 
-            <h3>Send us a message 
-              <img src={message_icon} alt="" /> </h3>
-           <p>Feel free to reach out through contact form or find our contact information below. Your feedback, questions, and suggestions are important to us as we strive to provide exceptional service to our university community.</p>
-              <ul>
-                <li><img src={email_icon} alt="" /> schoolm5263@gmail.com</li>
-                <li> <img src={phone_icon} alt="" /> +91 825294****</li>
-                <li> <img src={location_icon} alt="" /> Deori,uttar pradesh,india</li>
-                
-              </ul>
+          <p className="muted">
+            Feel free to reach out through the contact form or use the details below.
+            We’ll get back to you as soon as possible.
+          </p>
 
+          <ul className="info-list">
+            <li>
+              <span className="icon">
+                <img src={email_icon} alt="email" />
+              </span>
+              <div>
+                <p className="label">Email</p>
+                <p className="value">rdsshighschool@gmail.com</p>
+              </div>
+            </li>
+
+            <li>
+              <span className="icon">
+                <img src={phone_icon} alt="phone" />
+              </span>
+              <div>
+                <p className="label">Phone</p>
+                <p className="value">+91 8252949073</p>
+              </div>
+            </li>
+
+            <li>
+              <span className="icon">
+                <img src={location_icon} alt="location" />
+              </span>
+              <div>
+                <p className="label">Location</p>
+                <p className="value">Deori, Uttar Pradesh, India</p>
+              </div>
+            </li>
+          </ul>
+
+          <div className="hint">
+            <span className="dot"></span>
+            <p>Office Hours: Mon–Sat • 9:00 AM – 4:00 PM</p>
+          </div>
         </div>
-        <div className='contect-col'>
+
+        {/* Right Card (Form) */}
+        <div className="contact-form glass">
+          <h3 className="form-title">Contact Form</h3>
+
           <form onSubmit={onSubmit}>
-            <label>Your name</label>
-            <input type="text" name='name' placeholder='Enter your name' required/>
-            <label>Phone Number</label>
-            <input type="tel" name='Phone' placeholder='Enter your mobile number' required />
-            <label>Write your messages here</label>
-            <textarea name="message" rows="6" placeholder='Enter your massagge' required ></textarea>
-            <button type='submit' className='btn dark-btn'>Submit now <img src={black_arrow} alt="" /></button>
-          </form>
-          <span>{result}</span>
-         
-        </div>
-           
-    </div>
-  )
-}
+            <div className="field">
+              <label>Your Name</label>
+              <input type="text" name="name" placeholder="Enter your name" required />
+            </div>
 
-export default Contect
+            <div className="grid">
+              <div className="field">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="10 digit mobile number"
+                  required
+                  pattern="[0-9]{10}"
+                  title="Enter 10 digit number"
+                />
+              </div>
+
+              <div className="field">
+                <label>Email (Optional)</label>
+                <input type="email" name="email" placeholder="Enter your email" />
+              </div>
+            </div>
+
+            <div className="field">
+              <label>Message</label>
+              <textarea name="message" rows="6" placeholder="Write your message..." required />
+            </div>
+
+            {/* Honeypot */}
+            <input type="checkbox" name="botcheck" style={{ display: "none" }} />
+
+            <button className="send-btn" type="submit" disabled={loading}>
+              {loading ? "Sending..." : "Submit now"}
+              <img src={black_arrow} alt="arrow" />
+            </button>
+
+            <p className="result">{result}</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contect;

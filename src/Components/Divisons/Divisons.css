@@ -1,81 +1,145 @@
 /* Container */
-.divisons {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 25px;
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 0 20px;
+.divisons{
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: 1.1fr 1fr; /* left a bit wider */
+  grid-auto-rows: 240px;
+  gap: 28px;
+  align-items: stretch;
 }
 
-/* Individual Division Card */
-.divison {
-    position: relative;
-    flex: 0 0 32%;
-    border-radius: 15px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+/* Card */
+.divison{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+
+  box-shadow:
+    0 16px 45px rgba(0, 0, 0, 0.10),
+    0 2px 10px rgba(0, 0, 0, 0.06);
+
+  transform: translateZ(0);
+  transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
 }
 
-.divison img {
-    width: 100%;
-    display: block;
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+/* Image */
+.divison > img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 320ms ease;
 }
 
-.divison:hover img {
-    transform: scale(1.05);
+/* gradient overlay for readability */
+.divison::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.12) 45%,
+    rgba(0,0,0,0.00) 70%
+  );
+  pointer-events: none;
 }
 
-/* Caption Overlay */
-.caption {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 15px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
+/* Hover effect */
+.divison:hover{
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 65px rgba(0,0,0,0.16),
+    0 8px 18px rgba(0,0,0,0.10);
 }
 
-.divison:hover .caption {
-    transform: translateY(0);
+.divison:hover > img{
+  transform: scale(1.04);
 }
 
-.caption img {
-    width: 35px;
-    height: 35px;
+/* Caption (always visible like modern card) */
+.caption{
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.20);
+  backdrop-filter: blur(10px);
 }
 
-.caption p {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 500;
+.caption img{
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.25));
+}
+
+.caption p{
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* ✅ Layout to match screenshot:
+   1st = top-left
+   2nd = right big (span 2 rows)
+   3rd = bottom-left
+*/
+.divison:nth-child(2){
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.divison:nth-child(3){
+  grid-column: 1;
+  grid-row: 2;
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-    .divison {
-        flex: 0 0 48%;
-    }
+@media (max-width: 1024px){
+  .divisons{
+    grid-template-columns: 1fr;
+    grid-auto-rows: 240px;
+  }
+
+  .divison:nth-child(2){
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .divison:nth-child(3){
+    grid-column: auto;
+    grid-row: auto;
+  }
 }
 
-@media (max-width: 600px) {
-    .divison {
-        flex: 0 0 100%;
-    }
-    .divison img {
-        height: 200px;
-    }
+@media (max-width: 600px){
+  .divisons{
+    grid-auto-rows: 210px;
+    gap: 18px;
+    padding: 0 14px;
+  }
+  .caption p{
+    font-size: 15px;
+  }
+  .caption img{
+    width: 34px;
+    height: 34px;
+  }
 }
